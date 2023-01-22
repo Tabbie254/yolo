@@ -1,6 +1,6 @@
 name: Docker Series Builds
 
-on:[push]
+on: [push]
 
 jobs:
   build:
