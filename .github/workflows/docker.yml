@@ -1,0 +1,20 @@
+name: Docker Series Builds
+
+on:[push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker build mongodb
+      run: |
+         docker build ./backend -t mongo:4.2.16-bionic
+         
+    - name: docker build backend
+      run: |
+         docker build ./backend -t node_server_template
+       
+   - name: docker build client
+      run: |
+         docker build ./backend -t react_app_template
