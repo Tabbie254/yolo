@@ -1,0 +1,27 @@
+version: '20.10.22'
+services:
+  backend:
+    container_name: backendcont
+    image: node_server_template
+    build: ./backend
+    ports:
+      - "5001:5001"
+
+
+  client:
+    container_name: clientcont
+    image: react_app_template
+    build: ./react-app
+    ports:
+      - "5000:5000"
+
+  Tabbie254ke:
+    image: 'mongo:4.2.16-bionic'
+    ports:
+      -"27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: logs
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./db_data/mongo/:/data/db
