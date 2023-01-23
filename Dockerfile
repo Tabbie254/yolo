@@ -1,9 +1,10 @@
-FROM node:alpine
+FROM alpine:latest
 
 WORKDIR /usr/src/app
-COPY package.jason package-lock.json ./
+COPY package*.json .
 #install npm
-RUN npm ci
+RUN npm install
 COPY . .
 CMD [ "npm", "start" ]
-EXPOSE 5001
+
+EXPOSE 5000
