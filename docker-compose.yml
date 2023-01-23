@@ -1,27 +1,29 @@
-version: '20.10.22'
+version: '3.9'
+#mongoDB services
 services:
-  backend:
-    container_name: backendcont
-    image: node_server_template
-    build: ./backend
+  mongo_db:
+    container_name: backend_db
+    image: mongo:latest
+    restart: always
+    volumes:
+      -mongo_db:/data/db
+
     ports:
       - "5001:5001"
 
+#Nodejs api services
+api:
+  container_name: clientcont
+  build: .
+  ports:
+      - 3000:5000
+  environment:
+     PORT: 5000
+     mongodb_url: mongodb://mongo_db:27017
+     dbName: yolomy
+     NAME: Tabbieip2
+  depends_on:
+    - mongo_db
 
-  client:
-    container_name: clientcont
-    image: react_app_template
-    build: ./react-app
-    ports:
-      - "5000:5000"
-
-  mongodb:
-    image: 'mongo:4.2.16-bionic'
-    ports:
-      -"27017:27017"
-    environment:
-      MONGO_INITDB_DATABASE: logs
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password
-    volumes:
-      - ./db_data/mongo/:/data/db
+volumes:
+  mongo_db: {}
