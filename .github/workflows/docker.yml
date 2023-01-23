@@ -1,6 +1,6 @@
 name: Docker Series Builds
 
-on:[push]
+on: [push]
 
 jobs:
   build:
@@ -15,6 +15,6 @@ jobs:
       run: |
          docker build ./backend -t node_server_template
        
-   - name: docker build client
+    - name: docker build client
       run: |
          docker build ./backend -t react_app_template
