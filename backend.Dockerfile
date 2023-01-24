@@ -1,10 +1,13 @@
-FROM alpine:latest
+FROM node:14-slim 
 
-WORKDIR /usr/src/app
-COPY package*.json .
-#install npm
-RUN npm install
-COPY . .
-CMD [ "npm", "start" ]
+WORKDIR /backend
+
+COPY backend/package*.json ./
+
+RUN npm ci
+
+COPY  backend/ . 
 
 EXPOSE 5000
+
+CMD ["npm", "start"]
