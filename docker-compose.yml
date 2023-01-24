@@ -1,30 +1,53 @@
 version: '3.9'
-#mongoDB services
+
 services:
-  mongo_db:
-    container_name: backend_db
-    image: mongo:latest
-    restart: always
+  client:
+    tty: true
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    image: tabbieke254/client:v1
+    container_name: clientcontainer
     ports:
-      - 2717:27017
+      - '3000:3000'
+    networks:
+      - tabbieke254-network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    image: tabbieke254/backend:v1
+    container_name: backendcontainer
+    ports:
+      - '5000:5000'
+    networks:
+      - tabbieke254-network
+    depends_on:
+      - mongo_db
+
+  mongo_db:
+    container_name: mongo_db
+    image: mongo
     volumes:
       - mongo_db:/data/db
-
-#Nodejs api services
-  api:
-    container_name: clientcont
-    build: .
     ports:
-      - 3000:5000
-    volumes:
-      - .:/usr/src/app
+      - '27017:27017'
     environment:
-      PORT: 5000
-      mongodb_url: mongodb://mongo_db:27017
-      dbName: yolomy
-      NAME: Tabbieip2
-    depends_on:
-     - mongo_db
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - tabbieke254-network
+    
+
+networks:
+  tabbieke254-network:
+    driver: bridge
 
 volumes:
   mongo_db: {}
+
+
+  
