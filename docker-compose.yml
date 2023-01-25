@@ -16,9 +16,10 @@ services:
       - backend
 
   backend:
+    tty: true
     build:
       context: .
-      dockerfile: backend.Dockerfile
+      dockerfile: backend/Dockerfile
     image: tabbieke254/backend:v1
     container_name: backendcontainer
     ports:
