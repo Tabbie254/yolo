@@ -42,7 +42,8 @@
       
   - name: "Run backend"
     docker_container:
-      name: backend
+      name: backendcontainer
+      
       image: "{{ backend_image }}"
       state: started
       command: npm start
@@ -56,7 +57,7 @@
 
   - name: "Run client"
     docker_container:
-      name: client
+      name: clientcontainer
       image: "{{ client_image }}"
       state: started
       command: npm start
