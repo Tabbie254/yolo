@@ -36,6 +36,10 @@ Images were named according to the standard convention: [DOCKER-HUB-USERNAME>/IM
 ### Image Deployment
 - Sudo docker login is necessary in order to push to the docker hub. To push the image, the tag must be properly given. all images had a v1 tag.
 
+https://hub.docker.com/repository/docker/tabbieke254/backend
+https://hub.docker.com/repository/docker/tabbieke254/mongo
+https://hub.docker.com/repository/docker/tabbieke254/client
+
 ### Service Orchestration
 - The services were added to the same named bridge network to make sure they could communicate with one another. In this instance Yolo network: The Yolo volume was assigned to the Mongo service to ensure data permanence.
 - Service dependencies were provided in the docker compose to guarantee that services operated in the proper sequence. i.e., the client depends on the backend and the backend depends on Mongo
